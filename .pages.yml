@@ -1,0 +1,101 @@
+media:
+  input: public/assets
+  output: /assets
+content:
+  - name: posts
+    label: Blog posts
+    type: collection
+    path: content/posts
+    format: json
+    filename: "{fields.slug}.json"
+    view:
+      primary: title
+      fields: [title, date, published]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Article title (H1)
+        type: string
+        required: true
+      - name: slug
+        label: URL slug - lowercase words separated by hyphens
+        type: string
+        required: true
+      - name: published
+        label: Publish this article
+        type: boolean
+        default: false
+      - name: date
+        label: Publication date
+        type: date
+        options:
+          format: yyyy-MM-dd
+        required: true
+      - name: updated
+        label: Last substantial update (optional)
+        type: date
+        default: ""
+        options:
+          format: yyyy-MM-dd
+      - name: seo_title
+        label: SEO page title
+        type: string
+      - name: description
+        label: Meta description and blog excerpt
+        type: text
+        required: true
+      - name: image
+        label: Article image (optional)
+        type: image
+      - name: image_alt
+        label: Image alt text
+        type: string
+      - name: sections
+        label: Article sections - add as many as needed
+        type: object
+        list: true
+        required: true
+        fields:
+          - name: heading
+            label: Section heading (H2)
+            type: string
+            required: true
+          - name: text
+            label: Section text - separate paragraphs with an empty line
+            type: text
+            required: true
+      - name: source
+        label: Supporting public health source URL (https)
+        type: string
+        required: true
+  - name: site
+    label: Homepage and SEO
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: url
+        label: Canonical domain
+        type: string
+        readonly: true
+      - name: checkout_url
+        label: Payhip product URL
+        type: string
+        required: true
+      - name: seo_title
+        label: Homepage SEO title
+        type: string
+        required: true
+      - name: meta_description
+        label: Homepage meta description
+        type: text
+        required: true
+      - name: hero_title
+        label: Homepage headline
+        type: string
+        required: true
+      - name: hero_description
+        label: Homepage introduction
+        type: text
+        required: true
